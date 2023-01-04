@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>About Us</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
@@ -14,8 +12,40 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+	<style type="text/css">
+		/* Add some style to the page */
+		.header {
+			background-color: #ddd;
+			color: white;
+			padding: 60px;
+			text-align: center;
+      margin-top: 30px;
+		}
+		.content {
+			margin: 20px;
+		}
+		h1 {
+			font-size: 28px;
+			margin-bottom: 20px;
+		}
+		p {
+			font-size: 16px;
+			line-height: 1.5;
+		}
+		.logo {
+			display: block;
+			margin: 0 auto;
+			width: 200px;
+			height: 200px;
+			border-radius: 100px;
+			background-color: #ccc;
+		}
+    .marg{
+      margin-top: 150px;
+    }
+	</style>
+    
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <title>Contact</title>
 </head>
 <body>
 <section class="Nav-section pb-5">
@@ -76,31 +106,19 @@
       </nav>
     </section>
 
-    <section class="container mt-5">
-      <h3>Contact Us</h3>
-      <form action="{{ route('addcontact') }}" method="POST">
-        @csrf
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Name</label>
-              <input type="name" name="emailname" class="form-control" id="exampleFormControlInput1" placeholder="Name" required>
-          </div>
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
-          </div>
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Subject</label>
-              <input type="text" name="emailsubject" class="form-control" id="exampleFormControlInput1" placeholder="Subject" required>
-          </div>
-          <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-              <textarea name="emailtextarea" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-    </section>
+	<div class="header">
+		<!-- Add a logo -->
+		<div class="logo"></div>
+		<!-- Add the page title -->
+		<h1>About Us</h1>
+	</div>
+	<div class="content mb-5">
+		<!-- Add some information about your company -->
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a purus non enim finibus condimentum. Suspendisse potenti. Aliquam dignissim tortor auctor massa congue, a eleifend enim finibus. Suspendisse potenti. Aliquam erat volutpat. Donec auctor lorem ac elit efficitur, in sollicitudin ante dictum. Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+		<p>Sed vel dictum urna. Ut sollicitudin erat sit amet neque auctor, in suscipit nisl feugiat. Aliquam erat volutpat. Nunc tincidunt, nisl id viverra fermentum, felis nibh convallis nunc, in interdum diam nisl a ipsum. Integer id dictum ligula, eu ultricies ipsum. Integer hendrerit dui dui, ac pharetra metus egestas id. In hac habitasse platea dictumst. Maecenas volutpat porttitor tortor, at luctus nulla euismod a. Suspendisse potenti. Mauris vestibulum dignissim felis, non malesuada ipsum dignissim at.</p>
+	</div>
 
-    <div class="mt-5 container">
+  <div class="marg">
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
           <li class="nav-item">
@@ -125,7 +143,7 @@
         </p>
       </footer>
     </div>
-    <script
+  <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
     crossorigin="anonymous"

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/login.css')}}">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
@@ -15,13 +19,13 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <title>Contact</title>
+    <title>Login</title>
 </head>
 <body>
 <section class="Nav-section pb-5">
       <nav class="navbar navbar-expand-lg bg-light fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="/"
+          <a class="navbar-brand" href="{{url('/')}}"
             ><img class="logo" src="https://github.com/abdullahsajid-ma/bakery/blob/main/Super%20Sweet.png?raw=true" alt=""
           /></a>
           <button
@@ -49,7 +53,7 @@
                 <a class="nav-link text-dark nav-hov" href="{{url('contact')}}">CONTACT</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-dark nav-hov" href="{{url('about')}}">ABOUT</a>
+                <a class="nav-link text-dark nav-hov">ABOUT</a>
               </li>
             </ul>
             <ul class="navbar-nav">
@@ -75,57 +79,67 @@
         </div>
       </nav>
     </section>
-
-    <section class="container mt-5">
-      <h3>Contact Us</h3>
-      <form action="{{ route('addcontact') }}" method="POST">
-        @csrf
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Name</label>
-              <input type="name" name="emailname" class="form-control" id="exampleFormControlInput1" placeholder="Name" required>
-          </div>
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
-          </div>
-          <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Subject</label>
-              <input type="text" name="emailsubject" class="form-control" id="exampleFormControlInput1" placeholder="Subject" required>
-          </div>
-          <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-              <textarea name="emailtextarea" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-    </section>
-
-    <div class="mt-5 container">
-      <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-black font">Privacy Policy</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-black font">Terms of Use</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-black font"
-              >Cookie Preferences</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-black font"
-              >CA Supply Chain Act</a
-            >
-          </li>
-        </ul>
-        <p class="text-center text-muted">
-          &copy; 2022 Super Sweet & Bakers Company, Inc
-        </p>
-      </footer>
+@if(Session::has('error'))
+    <p class="text-danger">{{ Session::get('error')}}</p>
+@endif
+@if(Session::has('success'))
+    <p class="text-success">{{ Session::get('success')}}</p>
+@endif
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+   
+    <div class="fadeIn first">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8JyScJ3XAm0g9mNMQ1Ws7EI6LoVgs7_HDXg&usqp=CAU" id="icon" alt="User Icon" />
     </div>
-    <script
+
+    <form action="{{ route('admin')}}" method="post">
+        @csrf
+        @method('post')
+      <input type="text" id="login" class="fadeIn second" name="email" placeholder="login">
+      @if($errors->has('email'))
+        <p class="text-danger">{{$errors->first('email')}}</p>
+      @endif 
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      @if($errors->has('password'))
+        <p class="text-danger">{{$errors->first('password')}}</p>
+      @endif
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+<section class="login-footer">
+  <div class="container">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black font">Privacy Policy</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black font">Terms of Use</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black font"
+                >Cookie Preferences</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-black font"
+                >CA Supply Chain Act</a
+              >
+            </li>
+          </ul>
+          <p class="text-center text-muted">
+            &copy; 2022 Super Sweet & Bakers Company, Inc
+          </p>
+        </footer>
+  </div>
+</section>
+<script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
     crossorigin="anonymous"

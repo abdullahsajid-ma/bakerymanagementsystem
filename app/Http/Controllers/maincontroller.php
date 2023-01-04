@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\bakeryitem;
 use App\Models\User;
+use App\Mail\contact;
+
 class maincontroller extends Controller
 {
 
@@ -50,7 +53,6 @@ class maincontroller extends Controller
         $bakery = bakeryitem::all();
         return view("layout.menu")->with("itemdata",$bakery);
 
-        
     }
 
     function updateData(Request $req){
@@ -88,11 +90,28 @@ class maincontroller extends Controller
         return view('auth.login');
     }      
 
+    public function adminindex(){
+        return view('auth.adminlogin');
+    } 
+
     public function register(){
         return view('auth.register');
     }
 
     public function login(Request $req){
+        $req->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+
+        if(\Auth::attempt($req->only('email','password'))){
+            return redirect('home');
+        }
+
+        return redirect('login')->withErrors('invalid data');
+    }
+
+    public function adminlogin(Request $req){
         $req->validate([
             'email'=>'required',
             'password'=>'required'
@@ -131,8 +150,34 @@ class maincontroller extends Controller
         \Auth::logout();
         return redirect('');
     }
+    
     public function welcome(){
         return view('welcome');
+    }
+
+    public function contact(){
+        return view('contact');
+    }
+
+    public function send(Request $req){
+        $req->validate([    
+            'emailname' => 'required',
+            'email' => 'required|unique:users|email',
+            'emailsubject' => 'required',
+            'emailtextarea' => 'required'
+        ]);
+        $cred = [
+            'name' => $req->get('emailname'),
+            'email' => $req->get('email')
+        ];
+        $detail = [
+            'subject' => $req->get('emailsubject'),
+            'message' => $req->get('emailtextarea')
+        ];
+        // $details = implode(',', $detail);
+        Mail::to($cred['email'])->send(new contact($detail,$cred));
+
+        return redirect()->back();
     }
 
 }

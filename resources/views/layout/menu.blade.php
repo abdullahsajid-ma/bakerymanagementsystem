@@ -46,10 +46,10 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-dark nav-hov" href="#">REWARDS</a>
+                <a class="nav-link text-dark nav-hov" href="{{url('contact')}}">CONTACT</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-dark nav-hov">GIFT CARDS</a>
+                <a class="nav-link text-dark nav-hov" href="{{url('about')}}">ABOUT</a>
               </li>
             </ul>
             <ul class="navbar-nav">

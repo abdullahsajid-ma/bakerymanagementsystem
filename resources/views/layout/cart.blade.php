@@ -15,6 +15,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>Cart</title>
 </head>
 <body>
@@ -46,10 +47,10 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-dark nav-hov" href="#">REWARDS</a>
+                <a class="nav-link text-dark nav-hov" href="{{url('contact')}}">CONTACT</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-dark nav-hov">GIFT CARDS</a>
+                <a class="nav-link text-dark nav-hov" href="{{url('about')}}">ABOUT</a>
               </li>
             </ul>
             <ul class="navbar-nav">
@@ -103,6 +104,7 @@
                 </div>    
             </div>
             <div class="cart-procced">
+            <div id="liveAlertPlaceholder"></div>
                 <div>
                     <div>
                         <h3>Price</h3>
@@ -111,9 +113,19 @@
                     <div>
                        <h5>Rs: {{$itemprice}} pkr </h5>
                     </div>
+                    @if(Route::has('login'))
+                    @auth
                     <div class="cart-pro-btn mt-5">
-                        <a href="{{route('login')}}"><button>Procced</button></a>
+                        <a><button type="button" id="liveAlertBtn">Procced</button></a>
                     </div>
+                    @endauth
+                    @elseif (!Route::has('login'))
+              
+                    <div class="cart-pro-btn mt-5">
+                        <a href="{{ route('login') }}"><button type="button">Procced</button></a>
+                    </div>
+                    
+                    @endif
                 </div>
             </div>
         </div>
@@ -145,5 +157,37 @@
         </p>
       </footer>
     </div>
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <script>
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+    const alert = (message, type) => {
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+      ].join('')
+
+      alertPlaceholder.append(wrapper)
+    }
+
+    const alertTrigger = document.getElementById('liveAlertBtn')
+    if (alertTrigger) {
+      alertTrigger.addEventListener('click', () => {
+        window.setTimeout(function () { 
+         $("#liveAlertPlaceholder").alert('close'); 
+      }, 2000);
+        alert('Your item has been purchased.', 'success')
+      })
+    }
+  
+  </script>
 </body>
 </html>

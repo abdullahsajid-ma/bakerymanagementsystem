@@ -14,7 +14,12 @@ Route::get('Update',[maincontroller::class,'updateData']);
 Route::get('updatedata',[maincontroller::class,'Updatee']);
 Route::get('showdata',[maincontroller::class,'retrieveData'])->name('showdata');
 Route::get('menu',[maincontroller::class,'getEachItems']);
-Route::view('contact','contact');
+Route::get('contact',[maincontroller::class,'contact'])->name('contact');
+Route::post('addcontact',[maincontroller::class,'send'])->name('addcontact');
+Route::view('about','about');
+
+Route::get('admin_login',[maincontroller::class,'adminindex'])->name('admin_login'); 
+Route::post('admin',[maincontroller::class,'adminlogin'])->name('admin');  
 
 Route::group(['middleware'=>'guest'],function(){ 
     Route::get('login',[maincontroller::class,'index'])->name('login'); 
@@ -22,7 +27,6 @@ Route::group(['middleware'=>'guest'],function(){
 
     Route::get('register',[maincontroller::class,'register'])->name('register');
     Route::post('register',[maincontroller::class,'registered'])->name('register');
-    
 });
 
 Route::group(['middleware'=>'auth'],function(){
